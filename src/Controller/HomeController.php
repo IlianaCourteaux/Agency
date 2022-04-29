@@ -20,15 +20,5 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'properties' => $properties,
         ]);
-
-        // $property = new Properties;
-        // $om = $manager->getManager();
-        // $om->persist($property);
-        // $om->flush();
-
-        // return $this->render('home/index.html.twig', [
-        //     'controller_name' => 'HomeController',
-        //     'propertiesList' => $manager->getRepository(Properties::class)->findAll()
-        // ]);
     }
 }
