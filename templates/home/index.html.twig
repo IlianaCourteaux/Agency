@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div id="title">
+		<h3>Welcome to our agency's website</h3>
+		<p>Find every local real estate opportunities at the best price</p>
+	</div>
+
+	<div id="articles">
+		{% for property in properties %}
+			<div class="card" style="width: 300px;">
+				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
+				<div class="card-body">
+					<h5 class="card-title">{{ properties.title }}</h5>
+					<p class="card-text">
+						<p>Rooms: {{ properties.rooms}}</p>
+						<p>Size: {{ properties.surface }} m²</p>
+						<p>Price: ${{ properties.price }}</p>
+						<p>{{ properties.status }}</p>
+				    </p>
+					<a href="#" class="btn btn-primary">See property</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<div id="contact">
+		<h5>Our agency</h5>
+		<img src="{{ asset('/agency/agencyphoto.jpg') }}" alt='our agency'>
+		<p>Find us everyday from <strong>9am to 5pm</strong></p>
+		<p>1 test street</p>
+		<p>12345 TestTown</p>
+		<br>
+		<h6>Or contact us</h6>
+		<p>Via email: contact@agency.com</p>
+		<p>Via phone: 55554163</p>
+	</div>
+
+{% endblock %}

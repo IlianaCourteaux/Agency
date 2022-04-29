@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1 class="my-3">User list</h1>
+	<table class="table table-stripped table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Email</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Phone</th>
+				<th>Is Verified</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in userList %}
+				<tr>
+					<td>{{user.id}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.firstname}}</td>
+					<td>{{user.lastname}}</td>
+					<td>{{user.phone}}</td>
+					<td>
+						{% if user.isverified %}
+							<p>Yes</p>
+						{% else %}
+							<p>No</p>
+						{% endif %}
+						</td>
+					<td>
+						<a href="{{ path('update_user', {id: user.id}) }}">
+							<button class="btn btn-info">Modify</button>
+						</a>
+						<a href="{{ path('delete_user', {id: user.id}) }}">
+							<button class="btn btn-danger">Delete</button>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="12" class="text-info text-center">There's no user available.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/user/add">
+		<button class="btn btn-primary">Add new</button>
+	</a>
+
+
+{% endblock %}

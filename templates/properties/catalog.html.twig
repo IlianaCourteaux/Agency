@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div>
+		<h3>All properties</h3>
+	</div>
+
+    <div>
+    </div>
+
+	<div id="box">
+		{% for property in propertiesList %}
+			<div class="card" style="width: 300px;">
+				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
+				<div class="card-body">
+					<h5 class="card-title">{{ properties.title }}</h5>
+					<p class="card-text">
+						<p>Rooms: {{ properties.rooms}}</p>
+						<p>Size: {{ properties.surface }} m²</p>
+						<p>Price: ${{ properties.price }}</p>
+						<p>{{ properties.status }}</p>
+				    </p>
+					<a href="#" class="btn btn-primary">See property</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

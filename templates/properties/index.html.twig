@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1 class="my-3">Properties list</h1>
+	<table class="table table-stripped table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Photo</th>
+				<th>Surface</th>
+				<th>Price</th>
+				<th>Floors</th>
+				<th>Rooms</th>
+				<th>City</th>
+				<th>Type</th>
+				<th>Transacion Type</th>
+				<th>Slug</th>
+				<th>Options</th>
+				<th>Rented/Sold</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for properties in propertiesList %}
+				<tr>
+					<td>{{properties.id}}</td>
+					<td>{{properties.title}}</td>
+					<td><img src="{{ asset('img/photo/' ~ properties.photo) }}" alt="{{properties.title}}" width="50px"></td>
+					<td>{{properties.surface}}</td>
+					<td>{{properties.price}}</td>
+					<td>{{properties.floors}}</td>
+					<td>{{properties.rooms}}</td>
+					<td>{{properties.city}}</td>
+					<td>{{properties.type}}</td>
+					<td>{{properties.transactiontype}}</td>
+					<td>{{properties.slug}}</td>
+					<td>
+						{% for option in properties.option %}
+							<p>{{option.name}}</p>
+						{% endfor %}
+					</td>
+					<td>
+						{% if properties.status %}
+							<p>No</p>
+						{% else %}
+							<p>Yes</p>
+						{% endif %}
+					</td>
+					<td>
+						<a href="{{ path('update_property', {id: properties.id}) }}">
+							<button class="btn btn-info">Modify</button>
+						</a>
+						<a href="{{ path('delete_property', {id: properties.id}) }}">
+							<button class="btn btn-danger">Delete</button>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="14" class="text-info text-center">There's no property available.</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="/properties/add">
+		<button class="btn btn-primary">Add new</button>
+	</a>
+
+
+{% endblock %}
