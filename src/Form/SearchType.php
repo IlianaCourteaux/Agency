@@ -16,27 +16,27 @@ class SearchType extends AbstractType
         $builder
             ->add('minrooms', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Min Rooms',
             ])
             ->add('maxrooms', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Max Rooms',
             ])
             ->add('minsurface', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Min Surface',
             ])
             ->add('maxsurface', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Max Surface',
             ])
             ->add('minprice', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Min Price',
             ])
             ->add('maxprice', IntegerType::class, [
                 'required' => false,
-                'label' => false,
+                'label' => 'Max Price',
             ])
             ->add('submit', SubmitType::class, ['label' => 'Search'])
         ;
@@ -49,5 +49,10 @@ class SearchType extends AbstractType
             'method' => 'GET',
             'csrf_protection' => false,
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }

@@ -5,36 +5,54 @@
 		<h3>Welcome to our agency's website</h3>
 		<p>Find every local real estate opportunities at the best price</p>
 	</div>
+	<hr><br>
 
-	<div id="articles">
+	<div id="articles" class='d-flex flex-wrap justify-content-evenly'>
 		{% for properties in propertiesList %}
-			<div class="card" style="width: 300px;">
+			<div class="card" style="width: 300px; margin-bottom: 50px;">
 				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ properties.title }}</h5>
-					<p class="card-text">
-						<p>Rooms: {{ properties.rooms}}</p>
-						<p>Size: {{ properties.surface }} m²</p>
-						<p>Price: ${{ properties.price }}</p>
-						<p>{{ properties.status }}</p>
-				    </p>
-					<a href="#" class="btn btn-primary">See property</a>
-				</div>
+					<p class="card-text"></p>
+					<p>Rooms:
+						{{ properties.rooms}}</p>
+					<p>Size:
+						{{ properties.surface }}
+						m²</p>
+					<p>Price: ${{ properties.price }}</p>
+					<p>{% if properties.status %}
+					<p class="text-success"><strong>On sale</strong></p>
+						{% else %}
+							<p class="text-danger"><strong>Sold</strong></p>
+					{% endif %}</p>
+				</p>
+				<a href="{{ path('app_single', {id: properties.id}) }}" class="btn btn-primary">Learn more</a>
 			</div>
-			<br>
-		{% endfor %}
-	</div>
+		</div>
+	{% endfor %}
+</div>
+<div class="d-grid gap-2 col-2 mx-auto">
+<a href="#" class="btn btn-primary">See all properties</a>
+</div>
+<br><br>
 
-	<div id="contact">
-		<h5>Our agency</h5>
-		<img src="{{ asset('img/agency/agencyphoto.jpg') }}" alt='our agency' width='200px'>
-		<p>Find us everyday from <strong>9am to 5pm</strong></p>
-		<p>1 test street</p>
-		<p>12345 TestTown</p>
-		<br>
-		<h6>Or contact us</h6>
-		<p>Via email: contact@agency.com</p>
-		<p>Via phone: 55554163</p>
+<div id="contact" class="p-3 mb-2 bg-light">
+	<h4 class='text-center'>Our agency</h4>
+	<br>
+	<div class="d-flex flex-wrap justify-content-evenly">
+		<div>
+			<img src="{{ asset('img/agency/agencyphoto.jpg') }}" alt='our agency' width='200px'>
+		</div>
+		<div>
+			<p>Find us everyday from <strong>9am to 5pm</strong></p>
+			<p>1 test street</p>
+			<p>12345 TestTown</p>
+		</div>
+		<div>
+			<h6>Or contact us</h6>
+			<p>Via email: contact@agency.com</p>
+			<p>Via phone: 55554163</p>
+		</div>
 	</div>
-
+</div>
 {% endblock %}

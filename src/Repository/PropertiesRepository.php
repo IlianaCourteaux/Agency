@@ -47,6 +47,16 @@ class PropertiesRepository extends ServiceEntityRepository
         }
     }
 
+    public function getLatest(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.status = true')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Properties[] Returns an array of Properties objects
     //  */

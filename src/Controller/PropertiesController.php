@@ -23,6 +23,29 @@ class PropertiesController extends AbstractController
         ]);
     }
 
+    #[Route('properties/all', name: 'app_catalog', methods: ['GET'])]    
+    public function all(ManagerRegistry $manager, Request $request): Response
+    {
+        $properties = $manager->getRepository(Properties::class)->findAll();
+
+        $search = new Search;
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+
+        return $this->renderForm('properties/catalog.html.twig', [
+            'propertiesList' => $properties,
+            'form' => $form
+        ]);
+    }
+
+    #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
+    public function single(ManagerRegistry $manager):Response
+    {
+        return $this->render('properties/single.html.twig', [
+            'property' => $manager->getRepository(Properties::class)->findAll()
+        ]);
+    }
+
     #[Route('/properties/add', name: 'add_property', methods: ['GET', 'POST'])]
     public function add(ManagerRegistry $manager, Request $request): Response
     {
@@ -104,41 +127,6 @@ class PropertiesController extends AbstractController
         }
 
         return $this->redirectToRoute('app_properties');
-    }
-
-    #[Route('properties/all', name: 'app_catalog', methods: ['GET'])]
-
-    public function all(ManagerRegistry $manager, Request $request): Response
-    {
-        $search = new Search;
-        $form = $this->createForm(SearchType::class, $search);
-        $form->handleRequest($request);
-
-        return $this->renderForm('properties/catalog.html.twig', [
-            // 'properties' => $properties,
-            'form' => $form
-        ]);
-
-
-        // ----- test
-        // return $this->render('properties/catalog.html.twig', [
-        //     'property' => $manager->getRepository(Properties::class)->findAll()
-        // ]);
-
-        // ----- autre test
-        // $properties = $manager->getRepository(Properties::class)->findAll();
-        // return $this->render('properties/catalog.html.twig', [
-        //     'properties' => $properties,
-        // ]);
-
-    }
-
-    #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
-    public function single(ManagerRegistry $manager):Response
-    {
-        return $this->render('properties/single.html.twig', [
-            'property' => $manager->getRepository(Properties::class)->findAll()
-        ]);
     }
 
 }

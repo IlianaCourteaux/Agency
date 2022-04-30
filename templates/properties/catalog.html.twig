@@ -2,29 +2,71 @@
 
 {% block body %}
 	<div>
-		<h3>All properties</h3>
+		<h3>Browse all our properties</h3>
 	</div>
+	<hr>
 
-    <div>
-		{{ form(form) }}
-    </div>
+	<div>
+		{# {{ form(form) }} #}
 
-	{# <div id="box">
-		{% for property in properties %}
-			<div class="card" style="width: 300px;">
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col">
+				{{ form_row(form.minrooms) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.maxrooms) }}
+			</div>
+				<div class="col">
+				{{ form_row(form.minsurface) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.maxsurface) }}
+			</div>
+				<div class="col">
+				{{ form_row(form.minprice) }}
+			</div>
+			<div class="col">
+				{{ form_row(form.maxprice) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="d-grid gap-2 col-2 mx-auto">
+				{{ form_row(form.submit) }}
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</div>
+	<hr>
+	<br>
+
+	<div id="allproperties" class='d-flex flex-wrap justify-content-evenly'>
+		{% for properties in propertiesList %}
+			<div class="card" style="width: 300px; margin-bottom: 50px;">
 				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ properties.title }}</h5>
-					<p class="card-text">
-						<p>Rooms: {{ properties.rooms}}</p>
-						<p>Size: {{ properties.surface }} m²</p>
-						<p>Price: ${{ properties.price }}</p>
-						<p>{{ properties.status }}</p>
-				    </p>
-					<a href="#" class="btn btn-primary">See property</a>
-				</div>
+					<p class="card-text"></p>
+					<p>Rooms:
+						{{ properties.rooms}}</p>
+					<p>Size:
+						{{ properties.surface }}
+						m²</p>
+					<p>Price: ${{ properties.price }}</p>
+					<p>
+						{% if properties.status %}
+							<p class="text-success">
+								<strong>On sale</strong>
+							</p>
+						{% else %}
+							<p class="text-danger">
+								<strong>Sold</strong>
+							</p>
+						{% endif %}
+					</p>
+				</p>
+				<a href="{{ path('app_single', {id: properties.id}) }}" class="btn btn-primary">Learn more</a>
 			</div>
-		{% endfor %}
-	</div> #}
-
-{% endblock %}
+		</div>
+	{% endfor %}
+</div>{% endblock %}
