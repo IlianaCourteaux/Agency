@@ -23,7 +23,7 @@ class HomeController extends AbstractController
     public function index(ManagerRegistry $manager): Response
     {
         return $this->render('home/index.html.twig', [
-            'properties' => $manager->getRepository(Properties::class)->findAll()
+            'propertiesList' => $manager->getRepository(Properties::class)->findAll()
         ]);
     }
 

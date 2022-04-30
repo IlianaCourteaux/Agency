@@ -7,7 +7,7 @@
 	</div>
 
 	<div id="articles">
-		{% for property in properties %}
+		{% for properties in propertiesList %}
 			<div class="card" style="width: 300px;">
 				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
 				<div class="card-body">
@@ -21,12 +21,13 @@
 					<a href="#" class="btn btn-primary">See property</a>
 				</div>
 			</div>
+			<br>
 		{% endfor %}
 	</div>
 
 	<div id="contact">
 		<h5>Our agency</h5>
-		<img src="{{ asset('/agency/agencyphoto.jpg') }}" alt='our agency'>
+		<img src="{{ asset('img/agency/agencyphoto.jpg') }}" alt='our agency' width='200px'>
 		<p>Find us everyday from <strong>9am to 5pm</strong></p>
 		<p>1 test street</p>
 		<p>12345 TestTown</p>
