@@ -14,11 +14,8 @@
 				<div class="card-body">
 					<h5 class="card-title">{{ properties.title }}</h5>
 					<p class="card-text"></p>
-					<p>Rooms:
-						{{ properties.rooms}}</p>
-					<p>Size:
-						{{ properties.surface }}
-						m²</p>
+					<p>Rooms: {{ properties.rooms}}</p>
+					<p>Size: {{ properties.surface }} m²</p>
 					<p>Price: ${{ properties.price }}</p>
 					<p>{% if properties.status %}
 					<p class="text-success"><strong>On sale</strong></p>

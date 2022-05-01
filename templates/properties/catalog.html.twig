@@ -41,14 +41,14 @@
 	<br>
 
 	<div id="allproperties" class='d-flex flex-wrap justify-content-evenly'>
-		{% for properties in pagination %}
+		{% for properties in propertiesList %}
 			<div class="card" style="width: 300px; margin-bottom: 50px;">
 				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ properties.title }}</h5>
 					<p class="card-text"></p>
-					<p>Rooms:{{ properties.rooms}}</p>
-					<p>Size:{{ properties.surface }} m²</p>
+					<p>Rooms: {{ properties.rooms}}</p>
+					<p>Size: {{ properties.surface }} m²</p>
 					<p>Price: ${{ properties.price }}</p>
 					<p>
 					{% if properties.status %}
@@ -64,7 +64,7 @@
 	</div>
 
 	<div class="pagination position-absolute start-50 translate-middle">
-    	{{ knp_pagination_render(pagination) }}
+    	{{ knp_pagination_render(propertiesList) }}
 	</div>
 	<br><br>
 

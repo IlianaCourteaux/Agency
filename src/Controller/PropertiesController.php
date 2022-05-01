@@ -27,24 +27,23 @@ class PropertiesController extends AbstractController
     #[Route('properties/all', name: 'app_catalog', methods: ['GET'])]    
     public function all(ManagerRegistry $manager, Request $request, PaginatorInterface $paginator): Response
     {
-        // $properties = $manager->getRepository(Properties::class)->getLatestQuery();
-
-        $pagination = $paginator->paginate(
-            // $properties,
-            $manager->getRepository(Properties::class)->getLatestQuery(),
-            $request->query->getInt('page', 1),
-            8
-        );
 
         $search = new Search;
         $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
 
-        return $this->renderForm('properties/catalog.html.twig', [
-            // 'propertiesList' => $properties,
+        $properties = $paginator->paginate(
+            $manager->getRepository(Properties::class)->findAvailableQuery($search),
+            $request->query->getInt('page', 1),
+            8
+        );
+        
+        return $this->renderForm('properties/catalog.html.twig',[
+            'current_menu' => 'properties',
             'form' => $form,
-            'pagination' => $pagination
+            'propertiesList' => $properties
         ]);
+
     }
 
     #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]

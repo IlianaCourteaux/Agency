@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Search;
 use Doctrine\ORM\Query;
 use App\Entity\Properties;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -48,24 +50,84 @@ class PropertiesRepository extends ServiceEntityRepository
         }
     }
 
-    public function getLatestQuery(): Query
-        {
-            return $this->createQueryBuilder('p')
-                ->where('p.status = true')
-                ->orderBy('p.id', 'DESC')
-                ->getQuery();
+
+    public function findAvailableQuery(Search $search): Query
+    {
+        $query = $this->findAvailable();
+
+        if ($search->getMinrooms()){
+            $query = $query
+            ->andWhere('p.rooms >= :minrooms')
+            ->setParameter('minrooms', $search->getMinrooms());
         }
 
+        if ($search->getMaxrooms()){
+            $query = $query
+            ->andWhere('p.rooms <= :maxrooms')
+            ->setParameter('maxrooms', $search->getMaxrooms());
+        }
+        
+        if ($search->getMinsurface()){
+            $query = $query
+            ->andWhere('p.surface >= :minsurface')
+            ->setParameter('minsurface', $search->getMinsurface());
+        }
+                
+        if ($search->getMaxsurface()){
+            $query = $query
+            ->andWhere('p.surface <= :maxsurface')
+            ->setParameter('maxsurface', $search->getMaxsurface());
+        }
 
-    public function getLatestFive(): array
+        if ($search->getMinPrice()){
+            $query = $query
+            ->andWhere('p.price >= :minprice')
+            ->setParameter('minprice', $search->getMinprice());
+        }
+
+        if ($search->getMaxprice()){
+            $query = $query
+            ->andWhere('p.price <= :maxprice')
+            ->setParameter('maxprice', $search->getMaxprice());
+        }
+
+        return $query->getQuery();
+    }
+
+    public function findLatestFive(): array
+    {
+        return $this->findAvailable()
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    }
+
+    private function findAvailable(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->where('p.status = true')
-            ->orderBy('p.id', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult();
+        ->where('p.status = true')
+        ->orderBy('p.id', 'DESC'); 
     }
+    
+
+    // public function findLatestQuery(Search $search): Query
+    //     {
+    //         return $this->createQueryBuilder('p')
+    //             ->where('p.status = true')
+    //             ->orderBy('p.id', 'DESC')
+    //             ->getQuery();
+    //     }
+
+
+    // public function dindLatestFive(): array
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->where('p.status = true')
+    //         ->orderBy('p.id', 'DESC')
+    //         ->setMaxResults(5)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 
     // /**
