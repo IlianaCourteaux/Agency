@@ -2,7 +2,7 @@
 
 {% block body %}
 	<div>
-		<h3>Browse all our properties</h3>
+		<h3>Browse all available properties</h3>
 	</div>
 	<hr>
 
@@ -41,32 +41,31 @@
 	<br>
 
 	<div id="allproperties" class='d-flex flex-wrap justify-content-evenly'>
-		{% for properties in propertiesList %}
+		{% for properties in pagination %}
 			<div class="card" style="width: 300px; margin-bottom: 50px;">
 				<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" alt="{{ properties.title }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ properties.title }}</h5>
 					<p class="card-text"></p>
-					<p>Rooms:
-						{{ properties.rooms}}</p>
-					<p>Size:
-						{{ properties.surface }}
-						m²</p>
+					<p>Rooms:{{ properties.rooms}}</p>
+					<p>Size:{{ properties.surface }} m²</p>
 					<p>Price: ${{ properties.price }}</p>
 					<p>
-						{% if properties.status %}
-							<p class="text-success">
-								<strong>On sale</strong>
-							</p>
-						{% else %}
-							<p class="text-danger">
-								<strong>Sold</strong>
-							</p>
-						{% endif %}
+					{% if properties.status %}
+						<p class="text-success"><strong>On sale</strong></p>
+					{% else %}
+						<p class="text-danger"><strong>Sold</strong></p>
+					{% endif %}
 					</p>
-				</p>
-				<a href="{{ path('app_single', {id: properties.id}) }}" class="btn btn-primary">Learn more</a>
+					<a href="{{ path('app_single', {id: properties.id}) }}" class="btn btn-primary">Learn more</a>
+				</div>
 			</div>
-		</div>
-	{% endfor %}
-</div>{% endblock %}
+		{% endfor %}
+	</div>
+
+	<div class="pagination position-absolute start-50 translate-middle">
+    	{{ knp_pagination_render(pagination) }}
+	</div>
+	<br><br>
+
+{% endblock %}

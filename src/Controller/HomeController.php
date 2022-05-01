@@ -14,7 +14,7 @@ class HomeController extends AbstractController
 
     public function home(ManagerRegistry $manager): Response
     {
-        $properties = $manager->getRepository(Properties::class)->getLatest();
+        $properties = $manager->getRepository(Properties::class)->getLatestFive();
 
         return $this->render('home/index.html.twig', [
             'propertiesList' => $properties,

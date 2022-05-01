@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\Properties;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Properties>
@@ -47,7 +48,16 @@ class PropertiesRepository extends ServiceEntityRepository
         }
     }
 
-    public function getLatest(): array
+    public function getLatestQuery(): Query
+        {
+            return $this->createQueryBuilder('p')
+                ->where('p.status = true')
+                ->orderBy('p.id', 'DESC')
+                ->getQuery();
+        }
+
+
+    public function getLatestFive(): array
     {
         return $this->createQueryBuilder('p')
             ->where('p.status = true')
@@ -56,6 +66,7 @@ class PropertiesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
 
     // /**
     //  * @return Properties[] Returns an array of Properties objects
