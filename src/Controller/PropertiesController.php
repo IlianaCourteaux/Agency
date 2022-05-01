@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Search;
+use App\Entity\Contact;
 use App\Form\SearchType;
+use App\Form\ContactType;
 use App\Entity\Properties;
 use App\Form\PropertyType;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,13 +50,31 @@ class PropertiesController extends AbstractController
 
     }
 
+    // ------------------------ ICI ------------------------
     #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
-    public function single(int $id, ManagerRegistry $manager):Response
+    public function single(int $id, ManagerRegistry $manager, Request $request, MailerInterface $mailer):Response
     {
         $properties = $manager->getRepository(Properties::class)->find($id);
 
-        return $this->render('properties/single.html.twig', [
-            'properties' => $properties
+        $contact = new Contact();
+        $contact->setProperty($properties);
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        // $email = new TemplatedEmail();
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->addFlash('success', 'Email sent');
+            $mailer->sendEmail();
+            // $mailer->send($email);
+
+            return $this->redirectToRoute('app_single', ['id' => $id]);
+        }
+
+        return $this->renderForm('properties/single.html.twig', [
+            'properties' => $properties,
+            'form' => $form
         ]);
     }
 

@@ -1,0 +1,38 @@
+<h1>A new appointment has been made !</h1>
+<br>
+{# <p>A new person wishes to visit <a href="{{ url('app_single', {id: contact.properties.id}) }}"><strong>{{ contact.properties.title }}</strong>.</a></p> #}
+
+
+<br>
+<p>
+    <table class="table table-stripped table-hover">
+            <tr>
+                <td><strong>First Name:</strong></td>
+                <td>{{ contact.firstname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Last Name:</strong></td>
+                <td>{{ contact.lastname }}</td>
+            </tr>
+            <tr>
+                <td><strong>First Name:</strong></td>
+                <td>{{ contact.firstname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Phone Number:</strong></td>
+                <td>{{ contact.phone }}</td>
+            </tr>
+            <tr>
+                <td><strong>Appointment Date:</strong></td>
+                <td>{{ contact.date }}</td>
+            </tr>
+            <tr>
+                <td><strong>Appointment Time:</strong></td>
+                <td>{{ contact.time }}</td>
+            </tr>
+    </table>
+</p>
