@@ -106,7 +106,7 @@ class User
 
     public function getRole(): ?array
     {
-        return ['ROLE_ADMIN', 'ROLE_USER'];
+        return $this->role;
     }
 
     public function setRole(array $role): self
