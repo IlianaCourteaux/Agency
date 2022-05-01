@@ -1,7 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	<br>
+	<div class="container">
+		{# <div class="d-grid gap-2 col-2 mx-auto">
+			<h2> {{ properties.title }} </h2>
+		</div> #}
+		<div class="row">
+		<div class="col">
+			<img src="{{ asset('img/photo/' ~ properties.photo) }}" class="card-img-top" style="width: 550px;" alt="{{ properties.title }}">
+		</div>
+		<div class="col">
+			<h2> {{ properties.title }}</h2>
+			{% if properties.status %}
+				<p class="text-success"><strong>On sale</strong></p>
+			{% else %}
+				<p class="text-danger"><strong>Sold</strong></p>
+			{% endif %}
+			<p><strong>Type:</strong> {{properties.type}}</p>
+			<p><strong>Surface:</strong> {{properties.surface}} m²</p>
+			<p><strong>Number of rooms:</strong> {{properties.rooms}}</p>
+			<p><strong>Number of floors:</strong> {{properties.floors}}</p>
+			<p><strong>Location:</strong> {{properties.city}}</p>
+			<p><strong>Price:</strong> ${{properties.price}}</p>
+			<p><strong>Options:</strong> 
+			{# {% if properties.option %}
+				<p>{{ properties.option }}</p>
+			{% else %} #}
+				<p class="alert alert-danger">This property has no options.</p>
+			{# {% endif %} #}
+			</p>
+		</div>
+	</div>
+	<br><hr>
+		
 
+	</div>
 
 	{# <div class="row">
 		<div class="col-md-6 col-md-offset-3" id="form_container">

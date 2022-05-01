@@ -39,10 +39,12 @@ class PropertiesController extends AbstractController
     }
 
     #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
-    public function single(ManagerRegistry $manager):Response
+    public function single(int $id, ManagerRegistry $manager):Response
     {
+        $properties = $manager->getRepository(Properties::class)->find($id);
+
         return $this->render('properties/single.html.twig', [
-            'property' => $manager->getRepository(Properties::class)->findAll()
+            'properties' => $properties
         ]);
     }
 
@@ -130,5 +132,3 @@ class PropertiesController extends AbstractController
     }
 
 }
-
-?>
