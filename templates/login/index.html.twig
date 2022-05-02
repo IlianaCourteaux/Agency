@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     <form action="{{ path('app_login') }}" method="post">
@@ -20,9 +20,16 @@
             <input type="password" id="password" name="_password" class="form-control"/>
         </div>
     </div>
-        <input type="hidden" name="_target_path" value="/properties"  class="form-control"/> 
-    <div class="row ">
-        <button type="submit" class="btn btn-primary col-1">login</button>
+
+    {# <div class="row">
+        <a href="{{ path('app_properties') }}" class="btn btn-primary col-1">Login</a>
+    </div> #}
+        
+    <div class="row">
+        <input type="hidden" name="_target_path" value="{{ path('app_properties') }}"/>
+        <button type="submit" class="btn btn-primary col-1">Log in</button>
+
     </div>
     </form>
+
 {% endblock %}

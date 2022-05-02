@@ -18,8 +18,8 @@ class ContactType extends AbstractType
             ->add('lastname', TextType::class)
             ->add('email', TextType::class)
             ->add('phone', TextType::class)
-            ->add('date', TextType::class)
-            ->add('time', TextType::class)
+            ->add('date', TextType::class, ['attr' => array('placeholder' => 'YYYY-mm-dd')])
+            ->add('time', TextType::class, ['attr' => array('placeholder' => 'H:m:s')])
             ->add('submit', SubmitType::class, ['label' => 'Send'])
         ;
     }

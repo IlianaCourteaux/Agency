@@ -50,7 +50,6 @@ class PropertiesController extends AbstractController
 
     }
 
-    // ------------------------ ICI ------------------------
     #[Route('properties/{id}', name: 'app_single', methods: ['GET', 'POST'], requirements: ['id' => '\d+'])]
     public function single(int $id, ManagerRegistry $manager, Request $request, MailerInterface $mailer):Response
     {
@@ -62,12 +61,11 @@ class PropertiesController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
-        // $email = new TemplatedEmail();
+        $email = new TemplatedEmail();
 
         if($form->isSubmitted() && $form->isValid()){
             $this->addFlash('success', 'Email sent');
-            $mailer->sendEmail();
-            // $mailer->send($email);
+            $mailer->send($email);
 
             return $this->redirectToRoute('app_single', ['id' => $id]);
         }

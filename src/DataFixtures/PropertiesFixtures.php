@@ -18,7 +18,7 @@ class PropertiesFixtures extends Fixture
             $property = new Properties;
             $property  
                 ->setTitle($faker->words(4, true))
-                ->setPhoto($faker->imageUrl(null, 300, 300, 'house', true))
+                ->setPhoto('imgplaceholder.png')
                 ->setSurface($faker->numberBetween(20, 500))
                 ->setPrice($faker->numberBetween(600, 1000000))
                 ->setFloors($faker->numberBetween(1, 10))
