@@ -109,27 +109,6 @@ class PropertiesRepository extends ServiceEntityRepository
         ->orderBy('p.id', 'DESC'); 
     }
     
-
-    // public function findLatestQuery(Search $search): Query
-    //     {
-    //         return $this->createQueryBuilder('p')
-    //             ->where('p.status = true')
-    //             ->orderBy('p.id', 'DESC')
-    //             ->getQuery();
-    //     }
-
-
-    // public function dindLatestFive(): array
-    // {
-    //     return $this->createQueryBuilder('p')
-    //         ->where('p.status = true')
-    //         ->orderBy('p.id', 'DESC')
-    //         ->setMaxResults(5)
-    //         ->getQuery()
-    //         ->getResult();
-    // }
-
-
     // /**
     //  * @return Properties[] Returns an array of Properties objects
     //  */
